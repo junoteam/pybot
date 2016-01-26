@@ -7,6 +7,7 @@ import os
 import platform
 import subprocess
 import httplib
+import requests
 
 class SystemUtils(object):
 
@@ -58,8 +59,9 @@ class SystemUtils(object):
         return output
 
     def get_status_online(self, online_status):
+        host = "www.linuxspace.org"
         if online_status == "/check_site_status":
-            conn = httplib.HTTPConnection("www.linuxspace.org")
+            conn = httplib.HTTPConnection(host)
             conn.request("HEAD", "/")
             r1 = conn.getresponse()
             status = "LinuxSpace status: " + str(r1.status) + " " + str(r1.reason)
@@ -75,6 +77,22 @@ class SystemUtils(object):
         else:
             print "Debug message: nothing to do :&("
         return output
+
+    def get_automatic_site_status(self):
+
+        host = "www.linuxspace.org"
+        url = "https://api.telegram.org/botBOT TOKE HERE/sendMessage"
+        down = "Site LinuxSpace.org is Down"
+
+        conn = httplib.HTTPConnection(host)
+        conn.request("HEAD", "/")
+        site_status = conn.getresponse().status
+        status_final = str(site_status)
+
+        if status_final != "200":
+            print status_final
+            requests.post(url, data={'chat_id': 718943, 'text': str(down)})
+
 
 
 

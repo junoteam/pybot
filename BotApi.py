@@ -10,6 +10,7 @@ from Colors import Bcolors
 from SystemUtils import SystemUtils
 import os
 import time
+import threading
 
 __version__ = '1.0.1'
 
@@ -140,16 +141,24 @@ class BotApi(object):
         else:
             print "File: " + file_with_id + " doesn't exist"
 
-    @staticmethod
-    def engine():
-        bot = BotApi()
+    def get_automatic_site_status(self):
+        status_huyatus = SystemUtils()
         while 1:
             try:
-                bot.get_command()
+                status_huyatus.get_automatic_site_status()
+                time.sleep(5)
+            except Exception, e:
+                 time.sleep(5)
+                 print str(e)
+
+    def engine(self):
+        while 1:
+            try:
+                self.get_command()
                 time.sleep(1)
-            except Exception:
-                time.sleep(1)
-                print "Oops!  That was no valid number. Try again..."
+            except Exception, e:
+                time.sleep(5)
+                print str(e)
 
     def detect_wrong_user(self):
         values = {}
@@ -159,9 +168,19 @@ class BotApi(object):
         values['text'] = "Hello " + first_name_wrong_user + " " + last_name_wrong_user + " you are not authorized to send commands"
         http_post = requests.post(BotApi.full_url + self.send_message_method, data=values)
 
+    def run_thread1(self):
+        thread = threading.Thread(target=self.get_automatic_site_status)
+        thread.start()
+
+    def run_thread2(self):
+        thread = threading.Thread(target=self.engine)
+        thread.start()
+
 if __name__ == '__main__':
 
     print Bcolors.OKGREEN + "Starting bot..." + Bcolors.ENDC
-    BotApi.engine()
+    obj = BotApi()
+    obj.run_thread1()
 
-
+    obj1 = BotApi()
+    obj1.run_thread2()
