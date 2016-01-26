@@ -22,5 +22,5 @@ Run it in background:
 nohup python BotApi.py &
 ```
 Screenshot:
-![Alt text](https://pbs.twimg.com/media/CZqWwH-WIAESIWe.jpg "PyBot Screenshot iPhone6")
+(https://pbs.twimg.com/media/CZqWwH-WIAESIWe.jpg "PyBot Screenshot iPhone6")
 
