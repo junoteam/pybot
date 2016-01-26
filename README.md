@@ -18,4 +18,6 @@ You can send to PyBot next commands:
 - Get Status of site LinuxSpace.org
 
 Run it in background:
-# nohup python BotApi.py &
+```
+nohup python BotApi.py &
+```
