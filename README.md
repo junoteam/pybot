@@ -21,5 +21,4 @@ Run it in background:
 ```
 nohup python BotApi.py &
 ```
-Screenshot:
 ![ScreenShot](https://pbs.twimg.com/media/CZqX3fTWQAA-GRl.jpg "PyBot Screenshot iPhone6")
